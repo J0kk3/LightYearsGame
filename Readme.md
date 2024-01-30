@@ -2,6 +2,7 @@
 
 ## Core Dependencies
 - GCC (GNU Compiler Collection)
+  - Windows: Visual Studio Community 2022 Release - amd64
 - CMake (Cross-platform make)
 - Make (Build control tool)
 
