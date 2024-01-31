@@ -1,5 +1,6 @@
 #include <iostream>
 #include "framework/Application.h"
+#include "Application.h"
 
 namespace ly
 {
@@ -13,9 +14,9 @@ namespace ly
     // Main application loop
     void Application::Run()
     {
-        //Restart the clock at the beginning of the run
+        // Restart the clock at the beginning of the run
         _tickClock.restart();
-        //Accumulator for time since last update
+        // Accumulator for time since last update
         float accumulatedTime = 0.0f;
         float targetDeltaTime = 1.0f / _targetFrameRate;
 
@@ -28,14 +29,14 @@ namespace ly
                 if (windowEvent.type == sf::Event::EventType::Closed)
                 {
                     _window.close();
-                    Tick(targetDeltaTime);
-                    Render();
+                    TickInternal(targetDeltaTime);
+                    RenderInternal();
                 }
             }
 
-            //Accumulate elapsed time since last frame
+            // Accumulate elapsed time since last frame
             accumulatedTime += _tickClock.restart().asSeconds();
-            //Ensure updates occur at fixed intervals
+            // Ensure updates occur at fixed intervals
             while (accumulatedTime > targetDeltaTime)
             {
                 accumulatedTime -= targetDeltaTime;
@@ -43,14 +44,25 @@ namespace ly
         }
     }
 
-    //Tick: Updates the game logic based on the time elapsed since last update
-    void Application::Tick(float deltaTime)
+    // Updates the game logic based on the time elapsed since last update
+    void Application::TickInternal(float deltaTime)
     {
         std::cout << "Ticking at framerate: " << 1.0f / deltaTime << std::endl;
+        Tick(deltaTime);
     }
 
-    //Render: Handles all drawing operations
+    // Handles all drawing operations
+    void Application::RenderInternal()
+    {
+        _window.clear();
+        Render();
+        _window.display();
+    }
+
     void Application::Render()
     {
     }
+
+    void Application::Tick(float deltaTime)
+    {}
 }

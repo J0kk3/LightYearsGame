@@ -17,8 +17,6 @@ if(NOT EXISTS ${CMAKE_BINARY_DIR}/cmake/CPM.cmake)
 file(DOWNLOAD https://github.com/cpm-cmake/CPM.cmake/releases/download/v${CPM_DOWNLOAD_VERSION}/CPM.cmake ${CMAKE_BINARY_DIR}/cmake/CPM.cmake)
 endif()
 include(${CMAKE_BINARY_DIR}/cmake/CPM.cmake)
-# Include the CPM mopdule
-include(cmake/CPM.cmake)
 
 include(FetchContent)
 set(SFML_LIB_NAME SFML)
@@ -37,6 +35,8 @@ else()
     FetchContent_MakeAvailable(${SFML_LIB_NAME})
 endif()
 
+set(LIGHT_YEARS_ENGINE_TARGET_NAME LightYearsEngine)
 set(LIGHT_YEARS_GAME_TARGET_NAME LightYearsGame)
 
-add_subdirectory(LightYears)
+add_subdirectory(LightYearsEngine)
+add_subdirectory(LightYearsGame)
